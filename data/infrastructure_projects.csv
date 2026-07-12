@@ -1,11 +1,12 @@
-Project_ID,Project_Name,Sector,Country,Project_Cost_Million_USD,Debt_Ratio,Interest_Rate,Construction_Delay_Months,Inflation_Rate,GDP_Growth,Risk_Level
-P001,Metro Rail Expansion,Transport,India,850,0.65,8.5,4,5.4,6.8,Medium
-P002,Solar Power Plant,Energy,India,620,0.58,7.9,1,5.4,6.8,Low
-P003,Highway Corridor,Transport,Brazil,1500,0.75,9.2,8,4.8,2.5,High
-P004,Airport Terminal,Transport,UAE,1200,0.60,6.8,2,2.3,4.5,Low
-P005,Smart City Project,Urban,India,980,0.70,8.1,5,5.4,6.8,Medium
-P006,Hydroelectric Dam,Energy,Nepal,1750,0.82,9.5,10,6.2,4.1,High
-P007,Port Expansion,Transport,Singapore,920,0.55,5.8,1,1.9,3.8,Low
-P008,Telecom Network,Telecom,Germany,740,0.48,4.9,0,2.1,1.6,Low
-P009,Industrial Corridor,Manufacturing,India,1320,0.74,8.8,7,5.4,6.8,High
-P010,Water Supply Project,Water,India,430,0.52,7.4,2,5.4,6.8,Low
+Project_ID,Project_Name,Sector,Country,Latitude,Longitude,Project_Cost_Million_USD,Debt_Ratio,Interest_Rate,Construction_Delay_Months,Inflation_Rate,GDP_Growth,Risk_Level
+
+P001,Metro Rail Expansion,Transport,India,28.6139,77.2090,850,0.65,8.5,4,5.4,6.8,Medium
+P002,Solar Power Plant,Energy,India,23.2599,77.4126,620,0.58,7.9,1,5.4,6.8,Low
+P003,Highway Corridor,Transport,Brazil,-15.7939,-47.8828,1500,0.75,9.2,8,4.8,2.5,High
+P004,Airport Terminal,Transport,UAE,25.2048,55.2708,1200,0.60,6.8,2,2.3,4.5,Low
+P005,Smart City Project,Urban,India,19.0760,72.8777,980,0.70,8.1,5,5.4,6.8,Medium
+P006,Hydroelectric Dam,Energy,Nepal,27.7172,85.3240,1750,0.82,9.5,10,6.2,4.1,High
+P007,Port Expansion,Transport,Singapore,1.3521,103.8198,920,0.55,5.8,1,1.9,3.8,Low
+P008,Telecom Network,Telecom,Germany,52.5200,13.4050,740,0.48,4.9,0,2.1,1.6,Low
+P009,Industrial Corridor,Manufacturing,India,22.5726,88.3639,1320,0.74,8.8,7,5.4,6.8,High
+P010,Water Supply Project,Water,India,13.0827,80.2707,430,0.52,7.4,2,5.4,6.8,Low
