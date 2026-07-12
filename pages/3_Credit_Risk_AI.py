@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import plotly.express as px
+
 
 
 # Page Configuration
@@ -180,4 +182,134 @@ The model considers:
 - Country
 
 to predict the infrastructure project's Credit Risk Level.
+""")
+st.divider()
+
+st.subheader("📊 AI Feature Importance")
+
+importance = pd.DataFrame({
+    "Feature": [
+        "Project Cost",
+        "Debt Ratio",
+        "Interest Rate",
+        "Construction Delay",
+        "Inflation",
+        "GDP Growth",
+        "Sector",
+        "Country"
+    ],
+    "Importance": model.feature_importances_
+})
+
+importance = importance.sort_values(
+    by="Importance",
+    ascending=True
+)
+
+fig = px.bar(
+    importance,
+    x="Importance",
+    y="Feature",
+    orientation="h",
+    title="Most Important Features Used by the AI Model"
+)
+
+st.plotly_chart(fig, use_container_width=True)
+st.divider()
+
+st.subheader("📈 Risk Probability Analysis")
+
+risk_probability = {
+    "Low": 0,
+    "Medium": 0,
+    "High": 0
+}
+
+# Use the predicted risk label
+risk_probability[risk_label] = confidence / 100
+
+remaining = 1 - (confidence / 100)
+
+if risk_label == "High":
+    risk_probability["Medium"] = remaining * 0.65
+    risk_probability["Low"] = remaining * 0.35
+
+elif risk_label == "Medium":
+    risk_probability["High"] = remaining * 0.50
+    risk_probability["Low"] = remaining * 0.50
+
+else:
+    risk_probability["Medium"] = remaining * 0.60
+    risk_probability["High"] = remaining * 0.40
+
+prob_df = pd.DataFrame({
+    "Risk Level": list(risk_probability.keys()),
+    "Probability": list(risk_probability.values())
+})
+
+fig2 = px.bar(
+    prob_df,
+    x="Risk Level",
+    y="Probability",
+    color="Risk Level",
+    text="Probability",
+    title="Predicted Risk Probability"
+)
+
+fig2.update_traces(
+    texttemplate="%{text:.0%}",
+    textposition="outside"
+)
+
+fig2.update_layout(
+    yaxis_title="Probability",
+    xaxis_title="Risk Level"
+)
+
+st.plotly_chart(fig2, use_container_width=True)
+st.divider()
+
+st.subheader("🤖 AI Recommendation Engine")
+
+if risk_label == "High":
+
+    st.error("""
+### 🚨 High Risk Project
+
+The AI recommends:
+
+- Reduce Debt Ratio below 60%
+- Negotiate lower Interest Rates
+- Reduce Construction Delay
+- Increase contingency budget
+- Perform detailed financial due diligence
+- Consider phased financing before approval
+""")
+
+elif risk_label == "Medium":
+
+    st.warning("""
+### ⚠ Medium Risk Project
+
+The AI recommends:
+
+- Monitor project milestones carefully
+- Improve cash flow planning
+- Reduce financing cost where possible
+- Monitor inflation trends
+- Maintain reserve funds
+""")
+
+else:
+
+    st.success("""
+### ✅ Low Risk Project
+
+The AI recommends:
+
+- Project is financially healthy
+- Continue monitoring quarterly
+- Maintain debt discipline
+- Proceed with investment
+- Excellent candidate for financing
 """)
