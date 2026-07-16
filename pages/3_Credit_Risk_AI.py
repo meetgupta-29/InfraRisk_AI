@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import plotly.express as px
-
+from utils.report_generator import generate_report
 
 
 # Page Configuration
@@ -313,3 +313,106 @@ The AI recommends:
 - Proceed with investment
 - Excellent candidate for financing
 """)
+    st.divider()
+
+st.subheader("📥 Download Prediction Report")
+
+report = pd.DataFrame({
+    "Field": [
+        "Project Cost",
+        "Debt Ratio",
+        "Interest Rate",
+        "Construction Delay",
+        "Inflation",
+        "GDP Growth",
+        "Sector",
+        "Country",
+        "Predicted Risk",
+        "Prediction Confidence"
+    ],
+    "Value": [
+        project_cost,
+        debt_ratio,
+        interest_rate,
+        delay,
+        inflation,
+        gdp,
+        sector,
+        country,
+        risk_label,
+        f"{confidence:.2f}%"
+    ]
+})
+
+csv = report.to_csv(index=False).encode("utf-8")
+
+st.download_button(
+    label="📥 Download Prediction Report (CSV)",
+    data=csv,
+    file_name="prediction_report.csv",
+    mime="text/csv"
+)
+st.divider()
+
+st.subheader("📄 Executive PDF Report")
+
+report_data = {
+
+    "Project Cost": project_cost,
+
+    "Debt Ratio": debt_ratio,
+
+    "Interest Rate": interest_rate,
+
+    "Construction Delay": delay,
+
+    "Inflation": inflation,
+
+    "GDP Growth": gdp,
+
+    "Sector": sector,
+
+    "Country": country,
+
+    "Predicted Risk": risk_label,
+
+    "Prediction Confidence": f"{confidence:.2f}%"
+
+}
+
+if st.button("Generate Executive PDF"):
+
+    generate_report(
+        "Executive_Report.pdf",
+        report_data
+    )
+
+    st.success("Executive_Report.pdf generated successfully.")
+    st.divider()
+
+st.subheader("📄 Generate AI Risk Report")
+
+if st.button("Generate PDF Report"):
+
+    generate_report(
+        project_cost,
+        debt_ratio,
+        interest_rate,
+        delay,
+        inflation,
+        gdp,
+        sector,
+        country,
+        risk_label,
+        confidence
+    )
+
+    with open("Infrastructure_Risk_Report.pdf", "rb") as pdf_file:
+        st.download_button(
+            label="⬇ Download PDF Report",
+            data=pdf_file,
+            file_name="Infrastructure_Risk_Report.pdf",
+            mime="application/pdf"
+        )
+
+    st.success("✅ Report generated successfully!")
